@@ -1,0 +1,13 @@
+{
+  "name": "trs-alliance-v2.3",
+  "version": "2.3.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "export": "next export",
+    "audit-fix": "npm audit fix --force",
+    "dep-check": "npx depcheck --ignore-bin-package",
+    "update-deps": "npx npm-check-updates -u && npm install",
+    "trs": "node cli/index.js"
+  },
