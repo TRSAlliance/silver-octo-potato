@@ -1,0 +1,6 @@
+const logDir = path.join(__dirname, '../.creedys');
+  if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
+  const logFile = path.join(logDir, `${agent}-${new Date().toISOString().split('T')[0]}.log`);
+  fs.appendFileSync(logFile, `${new Date().toLocaleTimeString()} - ${message}\n`);
+  console.log(`[${agent}] ${message}`);
+};
