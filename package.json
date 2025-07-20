@@ -1,1 +1,16 @@
 {"name": "trs-ghostsignal", "version": "1.0.0"}
+{
+  "name": "silver-octo-potato",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
