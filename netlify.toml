@@ -1,7 +1,6 @@
 [build]
-  base = "TRSAlliance"
   command = "npm run build"
-  publish = "TRSAlliance/dist"
+  publish = dist"
 
 [[redirects]]
   from = "/*"
