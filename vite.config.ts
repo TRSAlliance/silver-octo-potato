@@ -1,1 +1,9 @@
-export default { root: ".", build: { outDir: "dist" } };
+// vite.config.ts
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  root: '.',
+  build: {
+    outDir: 'dist',
+  }
+})
