@@ -1,16 +1,31 @@
-{"name": "trs-ghostsignal", "version": "1.0.0"}
 {
-  "name": "silver-octo-potato",
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {
-     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+  "scan_id": "seo-deploy-audit",
+  "trigger": "metadata-check",
+  "agent": "deepseek",
+  "target": "meta",
+  "fail_on": [
+    "missing-description",
+    "multiple-title-tags",
+    "invisible-text",
+    "non-unique-canonical",
+    "meta-refresh"
+  ],
+  "severity_map": {
+    "missing-description": "high",
+    "multiple-title-tags": "medium",
+    "invisible-text": "high",
+    "non-unique-canonical": "low",
+    "meta-refresh": "critical"
   },
-  "devDependencies": {
-    "vite": "^5.0.0",
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
+  "actions": {
+    "on_fail": {
+      "notify": true,
+      "log_to": "sentinel/alerts",
+      "exit_code": 1
+    },
+    "on_pass": {
+      "log_to": "sentinel/logs",
+      "exit_code": 0
+    }
   }
 }
