@@ -1,0 +1,39 @@
+name: 📊 TRS SEO Deploy Audit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  seo-scan:
+    name: DeepSeek SEO Validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔄 Checkout Code
+        uses: actions/checkout@v3
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🔍 Run SEO Validation
+        run: node cli/index.js seo --agent=deepseek --target=meta
+
+      - name: 📁 Upload Audit Report (Optional)
+        if: success() || failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: trs-seo-report
+          path: output/seo-report.json
+
+      - name: 🛡️ Trigger Chainsaw Alert (If Failed)
+        if: failure()
+        run: |
+          echo "SEO Audit failed — potential metadata gap or cloaking attempt."
+          echo "::warning file=cli/index.js::TRS SEO audit flagged inconsistencies. Review chainsaw.json integrity."
