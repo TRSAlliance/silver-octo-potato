@@ -1,15 +1,15 @@
 [build]
-  base = "/"                      # Adjust only if your project isn't at repo root
-  publish = "dist"               # Folder to publish (from `npm run build`)
-  command = "npm run build"      # Build command
-  functions = "netlify/functions" # Path to Netlify Functions
+  base = "/"
+  publish = "dist"
+  command = "npm run build"
+  functions = "netlify/functions"
 
 [functions]
-  node_bundler = "esbuild"       # Optional: Faster bundling, modern syntax
+  node_bundler = "esbuild"
 
 [build.environment]
-  NODE_VERSION = "20"            # Match your local/dev Node version
-  NPM_FLAGS = "--legacy-peer-deps" # Optional: if you hit dependency issues
+  NODE_VERSION = "20"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
   from = "/*"
