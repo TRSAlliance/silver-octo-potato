@@ -29,3 +29,4 @@
     }
   }
 }
+"Fix build src target for Vercel – use package.json"
