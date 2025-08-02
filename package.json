@@ -1,32 +1,21 @@
 {
-  "scan_id": "seo-deploy-audit",
-  "trigger": "metadata-check",
-  "agent": "deepseek",
-  "target": "meta",
-  "fail_on": [
-    "missing-description",
-    "multiple-title-tags",
-    "invisible-text",
-    "non-unique-canonical",
-    "meta-refresh"
-  ],
-  "severity_map": {
-    "missing-description": "high",
-    "multiple-title-tags": "medium",
-    "invisible-text": "high",
-    "non-unique-canonical": "low",
-    "meta-refresh": "critical"
+  "name": "trsalliance-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",                      // 🔁 Required for Vercel (used by "npm run build")
+    "preview": "vite preview",
+    "seo": "node cli/index.js seo --agent=deepseek --target=meta"  // optional: CLI scan alias
   },
-  "actions": {
-    "on_fail": {
-      "notify": true,
-      "log_to": "sentinel/alerts",
-      "exit_code": 1
-    },
-    "on_pass": {
-      "log_to": "sentinel/logs",
-      "exit_code": 0
-    }
+  "dependencies": {
+    "vite": "^5.0.0",                          // 🔁 Adjust based on actual version
+    "some-framework": "^1.0.0"                 // e.g., react, vue, svelte — add your actual framework
+  },
+  "devDependencies": {
+    "@vitejs/plugin-xxx": "^x.x.x"             // 🔁 Include Vite plugins you're using
+  },
+  "engines": {
+    "node": ">=20"
   }
 }
-"Fix build src target for Vercel – use package.json"
