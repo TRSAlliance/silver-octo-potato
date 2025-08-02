@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build",                      // 🔁 Required for Vercel (used by "npm run build")
+    "build": "vite build",                     
     "preview": "vite preview",
-    "seo": "node cli/index.js seo --agent=deepseek --target=meta"  // optional: CLI scan alias
+    "seo": "node cli/index.js seo --agent=deepseek --target=meta"  
   },
   "dependencies": {
-    "vite": "^5.0.0",                          // 🔁 Adjust based on actual version
-    "some-framework": "^1.0.0"                 // e.g., react, vue, svelte — add your actual framework
+    "vite": "^5.0.0",                         
+    "some-framework": "^1.0.0"                 
   },
   "devDependencies": {
-    "@vitejs/plugin-xxx": "^x.x.x"             // 🔁 Include Vite plugins you're using
+    "@vitejs/plugin-xxx": "^x.x.x"             
   },
   "engines": {
     "node": ">=20"
