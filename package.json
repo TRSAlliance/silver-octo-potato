@@ -3,20 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
-}
-
-    "seo": "node cli/index.js seo --agent=deepseek --target=meta"  
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "seo": "node cli/index.js seo --agent=deepseek --target=meta"
   },
   "dependencies": {
-    "vite": "^5.0.0",                         
-    "some-framework": "^1.0.0"                 
+    "vite": "^5.0.0",
+    "some-framework": "^1.0.0"
   },
   "devDependencies": {
-    "@vitejs/plugin-xxx": "^x.x.x"             
+    "@vitejs/plugin-xxx": "^x.x.x"
   },
   "engines": {
     "node": ">=20"
   }
+}
