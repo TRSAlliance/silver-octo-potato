@@ -8,6 +8,9 @@
     "preview": "vite preview",
     "seo": "node cli/index.js seo --agent=deepseek --target=meta"
   },
+  "dependencies": {
+    "vite": "^5.0.0"
+  },
   "engines": {
     "node": ">=20"
   }
