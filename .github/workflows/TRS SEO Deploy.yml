@@ -1,7 +1,7 @@
-name: TRS SEO Deploy.yml
-on:
-  workflow_dispatch:    # manual trigger only
+ name: TRS SEO Deploy
 
+on:
+  workflow_dispatch:    # manual trigger allowed
   push:
     branches:
       - main
@@ -21,9 +21,8 @@ jobs:
           node-version: '20'
           cache: 'npm'
 
-      - run: npm ci
       - name: 📦 Install Dependencies
-        run: npm install
+        run: npm ci
 
       - name: 🔍 Run SEO Validation
         run: node cli/index.js seo --agent=deepseek --target=meta
@@ -40,3 +39,11 @@ jobs:
         run: |
           echo "SEO Audit failed — potential metadata gap or cloaking attempt."
           echo "::warning file=cli/index.js::TRS SEO audit flagged inconsistencies. Review chainsaw.json integrity."
+
+      - name: 📡 Trigger Permaweb Sync
+        if: success()
+        uses: benc-uk/workflow-dispatch@v1
+        with:
+          workflow: 'TRS Permaweb Sync'
+          repo: TRSAlliance/trs-permaweb-cookbook
+          token: ${{ secrets.TRIGGER_TOKEN }}
