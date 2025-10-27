@@ -1,6 +1,7 @@
-name: 📊 TRS SEO Deploy Audit
-
+name: TRS SEO Deploy
 on:
+  workflow_dispatch:    # manual only
+
   push:
     branches:
       - main
