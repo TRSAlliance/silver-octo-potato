@@ -1,6 +1,6 @@
-name: 
+name: TRS SEO Deploy.yml
 on:
-  workflow_dispatch:    # manual only
+  workflow_dispatch:    # manual trigger only
 
   push:
     branches:
