@@ -1,4 +1,4 @@
-name: TRS SEO Deploy
+name: 
 on:
   workflow_dispatch:    # manual only
 
