@@ -1,4 +1,4 @@
- name: TRS SEO Deploy
+ name: TRS SEO Sentinel CLI Deploy
 
 on:
   workflow_dispatch:    # manual trigger allowed
