@@ -1,4 +1,4 @@
-# silver-octo-potato — TRS Alliance SEO + Simulation Starter
+TRS Alliance SEO + Simulation Starter
 
 **The visual entry to GhostShift.**  
 Real-time operator trust simulation with SEO, Firebase, and Vercel.
