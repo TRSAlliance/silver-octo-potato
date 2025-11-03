@@ -1,7 +1,7 @@
-# TRS Alliance v2.3 Starter System Repo
-# Generated for two-agent architecture (Grok x DeepSeek)
+TRS Alliance v2.3 — Starter System Repository
+Generated for a two-agent architecture (Grok × DeepSeek)
 
-# package.json
+package.json
 {
   "name": "trs-alliance-v2.3",
   "version": "2.3.0",
@@ -33,7 +33,7 @@
   }
 }
 
-# netlify.toml (Managed by DeepSeek)
+netlify.toml (Managed by DeepSeek)
 [build]
   command = "npm run export"
   publish = "out"
@@ -53,7 +53,7 @@
   NODE_VERSION = "18"
   NPM_VERSION = "9"
 
-# firebase.json (Managed by Grok)
+firebase.json (Managed by Grok)
 {
   "firestore": {
     "rules": "firestore.rules",
@@ -61,21 +61,22 @@
   },
   "hosting": {
     "public": "out",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+    "ignore": ["firebase.json", "/.*", "/node_modules/**"]
   }
 }
 
-# firestore.rules (Managed by Grok)
+firestore.rules (Managed by Grok)
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
+      // Restrict read/write to authenticated users matching the resource's user_id
       allow read, write: if request.auth != null && request.auth.uid == resource.data.user_id;
     }
   }
 }
 
-# cli/index.js (Unified CLI entry point)
+cli/index.js — Unified CLI entry point
 #!/usr/bin/env node
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -84,36 +85,36 @@ const path = require('path');
 const logCreedy = (agent, message) => {
   const logDir = path.join(__dirname, '../.creedys');
   if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
-  const logFile = path.join(logDir, `${agent}-${new Date().toISOString().split('T')[0]}.log`);
-  fs.appendFileSync(logFile, `${new Date().toLocaleTimeString()} - ${message}\n`);
-  console.log(`[${agent}] ${message}`);
+  const logFile = path.join(logDir, ${agent}-${new Date().toISOString().split('T')[0]}.log);
+  fs.appendFileSync(logFile, ${new Date().toLocaleTimeString()} - ${message}\n);
+  console.log([${agent}] ${message});
 };
 
 const commands = {
-  'validate': {
+  validate: {
     agent: 'grok',
     run: (target) => {
-      logCreedy('grok', `Validating ${target}...`);
+      logCreedy('grok', Validating ${target}...);
       if (target === 'firestore') {
         execSync('firebase firestore:validate');
         logCreedy('grok', 'Firestore rules validated successfully');
       }
     }
   },
-  'deploy': {
+  deploy: {
     agent: 'deepseek',
     run: (target) => {
-      logCreedy('deepseek', `Deploying to ${target}...`);
+      logCreedy('deepseek', Deploying to ${target}...);
       if (target === 'netlify') {
         execSync('npm run export && netlify deploy --dir=out --prod');
         logCreedy('deepseek', 'Netlify deployment complete');
       }
     }
   },
-  'fix': {
+  fix: {
     agent: 'deepseek',
     run: (target) => {
-      logCreedy('deepseek', `Fixing ${target}...`);
+      logCreedy('deepseek', Fixing ${target}...);
       if (target === 'netlify') {
         execSync('npm audit fix --force && npx npm-check-updates -u && npm install');
         logCreedy('deepseek', 'Dependencies fixed and updated');
@@ -132,7 +133,7 @@ if (commands[command] && (!agent || commands[command].agent === agent)) {
   console.error('Invalid command or agent. Usage: trs <command> --agent=<grok|deepseek> --target=<firestore|netlify>');
 }
 
-# cli/grok.js
+cli/grok.js
 #!/usr/bin/env node
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -141,19 +142,20 @@ const path = require('path');
 const logCreedy = (message) => {
   const logDir = path.join(__dirname, '../.creedys');
   if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
-  const logFile = path.join(logDir, `grok-${new Date().toISOString().split('T')[0]}.log`);
-  fs.appendFileSync(logFile, `${new Date().toLocaleTimeString()} - ${message}\n`);
-  console.log(`[Grok] ${message}`);
+  const logFile = path.join(logDir, grok-${new Date().toISOString().split('T')[0]}.log);
+  fs.appendFileSync(logFile, ${new Date().toLocaleTimeString()} - ${message}\n);
+  console.log([Grok] ${message});
 };
 
 const [,, action, target] = process.argv;
+
 if (action === 'validate' && target === 'firestore') {
   logCreedy('Validating Firestore rules...');
   try {
     execSync('firebase firestore:validate');
     logCreedy('Firestore rules validated successfully');
   } catch (error) {
-    logCreedy(`Validation failed: ${error.message}`);
+    logCreedy(Validation failed: ${error.message});
   }
 } else if (action === 'deploy' && target === 'firebase') {
   logCreedy('Deploying to Firebase...');
@@ -161,13 +163,13 @@ if (action === 'validate' && target === 'firestore') {
     execSync('firebase deploy --only firestore');
     logCreedy('Firebase deployment complete');
   } catch (error) {
-    logCreedy(`Deployment failed: ${error.message}`);
+    logCreedy(Deployment failed: ${error.message});
   }
 } else {
   console.error('Usage: node cli/grok.js <validate|deploy> <firestore|firebase>');
 }
 
-# cli/deepseek.js
+cli/deepseek.js
 #!/usr/bin/env node
 const { execSync } = require('child_process');
 const fs = require('fs');
@@ -176,12 +178,13 @@ const path = require('path');
 const logCreedy = (message) => {
   const logDir = path.join(__dirname, '../.creedys');
   if (!fs.existsSync(logDir)) fs.mkdirSync(logDir);
-  const logFile = path.join(logDir, `deepseek-${new Date().toISOString().split('T')[0]}.log`);
-  fs.appendFileSync(logFile, `${new Date().toLocaleTimeString()} - ${message}\n`);
-  console.log(`[DeepSeek] ${message}`);
+  const logFile = path.join(logDir, deepseek-${new Date().toISOString().split('T')[0]}.log);
+  fs.appendFileSync(logFile, ${new Date().toLocaleTimeString()} - ${message}\n);
+  console.log([DeepSeek] ${message});
 };
 
 const [,, action, target] = process.argv;
+
 if (action === 'fix' && target === 'netlify') {
   logCreedy('Fixing Netlify configuration and dependencies...');
   try {
@@ -190,7 +193,7 @@ if (action === 'fix' && target === 'netlify') {
     execSync('npm install -D @netlify/plugin-nextjs @netlify/plugin-sitemap @netlify/plugin-inline-critical-css');
     logCreedy('Netlify plugins installed');
   } catch (error) {
-    logCreedy(`Fix failed: ${error.message}`);
+    logCreedy(Fix failed: ${error.message});
   }
 } else if (action === 'deploy' && target === 'netlify') {
   logCreedy('Deploying to Netlify...');
@@ -198,22 +201,22 @@ if (action === 'fix' && target === 'netlify') {
     execSync('npm run export && netlify deploy --dir=out --prod');
     logCreedy('Netlify deployment complete');
   } catch (error) {
-    logCreedy(`Deployment failed: ${error.message}`);
+    logCreedy(Deployment failed: ${error.message});
   }
 } else if (action === 'zip' && target === 'audit') {
   logCreedy('Generating fixed zip bundle...');
   try {
     execSync('npm audit fix --force && npm run export');
-    execSync('zip -r fixed-deploy.zip . -x "*.git*" "node_modules/*" ".gitignore" ".github/*"');
+    execSync('zip -r fixed-deploy.zip . -x ".git" "node_modules/" ".gitignore" ".github/"');
     logCreedy('Fixed zip bundle created: fixed-deploy.zip');
   } catch (error) {
-    logCreedy(`Zip creation failed: ${error.message}`);
+    logCreedy(Zip creation failed: ${error.message});
   }
 } else {
   console.error('Usage: node cli/deepseek.js <fix|deploy|zip> <netlify|audit>');
 }
 
-# .github/workflows/deploy.yml
+.github/workflows/deploy.yml
 name: Deploy and Validate
 on:
   push:
@@ -224,38 +227,42 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-      - name: Validate Firestore Rules
-        run: node cli/grok.js validate firestore
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-  deploy:
+
+  - uses: actions/checkout@v3
+  - name: Setup Node.js
+    uses: actions/setup-node@v3
+    with:
+      node-version: '18'
+      cache: 'npm'
+  - name: Install Firebase CLI
+    run: npm install -g firebase-tools
+  - name: Validate Firestore Rules
+    run: node cli/grok.js validate firestore
+    env:
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+  
+
+deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'
-          cache: 'npm'
-      - name: Install dependencies
-        run: npm ci
-      - name: Fix dependencies
-        run: node cli/deepseek.js fix netlify
-      - name: Build and deploy
-        run: node cli/deepseek.js deploy netlify
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      	* uses: actions/checkout@v3
+	* name: Setup Node.js
+uses: actions/setup-node@v3
+with:
+  node-version: '18'
+  cache: 'npm'
+	* name: Install dependencies
+run: npm ci
+	* name: Fix dependencies
+run: node cli/deepseek.js fix netlify
+	* name: Build and deploy
+run: node cli/deepseek.js deploy netlify
+env:
+  NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-# .creedys/README.md
-# Creedy Logs
-This directory contains educational logs ("creedys") generated by Grok and DeepSeek to explain their actions.
-- `grok-*.log`: Logs for Grok's validation and Firebase-related tasks.
-- `deepseek-*.log`: Logs for DeepSeek's dependency fixes and Netlify deployments.
+ys/README.md
+Creedy logs
+This directory contains the logs generated by Grok and DeepSeek that document actions taken during validation, dependency management, and deployment.
+
+	* grok-*.log: Validation and Firebase-related logs
+	* deepseek-*.log: Dependency fixes and Netlify deployment logs
